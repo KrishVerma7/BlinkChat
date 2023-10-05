@@ -9,6 +9,7 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -22,7 +23,7 @@ import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
 
 class SignUpActivity : AppCompatActivity() {
-   private val storage by lazy {
+    private val storage by lazy {
         FirebaseStorage.getInstance()
     }
     private val auth by lazy {
@@ -34,6 +35,7 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var userImgView: ShapeableImageView
     lateinit var downloadUrl: String
     lateinit var nextBtn: Button
+    lateinit var nameEt: EditText
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,9 +43,31 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         userImgView = findViewById(R.id.userImgView)
+        nextBtn = findViewById(R.id.nextBtn)
+        nameEt = findViewById(R.id.nameEt)
 
         userImgView.setOnClickListener {
             checkPermissionForImage()
+        }
+
+        nextBtn.setOnClickListener {
+            nextBtn.isEnabled = false
+            val name = nameEt.text.toString()
+            if (name.isEmpty()) {
+                Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+            } else if (!::downloadUrl.isInitialized) {
+                Toast.makeText(this, "Image cannot be empty", Toast.LENGTH_SHORT).show()
+            } else {
+                val user = User(name, downloadUrl, downloadUrl, auth.uid!!)
+                database.collection("users").document(auth.uid!!).set(user).addOnCompleteListener {
+                    startActivity(
+                        Intent(this, MainActivity::class.java)
+                    )
+                    finish()
+                }.addOnFailureListener {
+                    nextBtn.isEnabled = true
+                }
+            }
         }
     }
 
@@ -118,7 +142,7 @@ class SignUpActivity : AppCompatActivity() {
                 downloadUrl = task.result.toString()
                 Log.i("URL", "downloadUrl: $downloadUrl")
             } else {
-
+                nextBtn.isEnabled = true
             }
         }.addOnFailureListener {
             Toast.makeText(this, "Upload image Failed", Toast.LENGTH_SHORT).show()

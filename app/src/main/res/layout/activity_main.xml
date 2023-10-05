@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+=======
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+>>>>>>> c0d8537 (implemented uploading of profile image to firebase storage)
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,5 +11,13 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+<<<<<<< HEAD
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+=======
+<TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Hello"/>
+</LinearLayout>
+>>>>>>> c0d8537 (implemented uploading of profile image to firebase storage)
