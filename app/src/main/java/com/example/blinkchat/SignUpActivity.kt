@@ -119,7 +119,6 @@ class SignUpActivity : AppCompatActivity() {
                 Log.i("URL", "downloadUrl: $downloadUrl")
             } else {
 
-                nextBtn.isEnabled = true
             }
         }.addOnFailureListener {
             Toast.makeText(this, "Upload image Failed", Toast.LENGTH_SHORT).show()
