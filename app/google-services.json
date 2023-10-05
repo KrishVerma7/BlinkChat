@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "271380764867",
+    "project_id": "blinkchat-64e27",
+    "storage_bucket": "blinkchat-64e27.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271380764867:android:afd7e5c6495c19dd946a76",
+        "android_client_info": {
+          "package_name": "com.example.blinkchat"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsz3MP3nA2VMbjWHijsLC2aQHi5x01FrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
