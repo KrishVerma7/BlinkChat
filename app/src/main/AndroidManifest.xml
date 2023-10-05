@@ -20,6 +20,12 @@
             android:name=".activities.SplashActivity"
             android:exported="true"
             android:theme="@style/SplashTheme">
+        tools:targetApi="34"
+
+        android:enableOnBackInvokedCallback="true">
+        <activity
+            android:name=".SignUpActivity"
+            android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
