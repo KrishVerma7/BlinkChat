@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">BlinkChat</string>
+    <string name="verify_number">Verify %s\n</string>
+    <string name="waiting_text">Waiting to automatically detect an SMS sent to \n %s Wrong Number?</string>
+    <string name="second_remaining">Seconds Remaining: %d</string>
+</resources>
