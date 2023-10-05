@@ -33,7 +33,6 @@
         android:scaleType="centerCrop"
         />
 <EditText
-    android:id="@+id/nameEt"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:hint="Type your name here"
