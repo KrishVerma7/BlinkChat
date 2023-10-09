@@ -1,4 +1,4 @@
-package com.example.blinkchat
+package com.example.blinkchat.activities
 
 import android.Manifest
 import android.app.Activity
@@ -12,14 +12,15 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.blinkchat.R
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
-import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
+
 
 class SignUpActivity : AppCompatActivity() {
    private val storage by lazy {
@@ -92,7 +93,6 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun uploadImage(it: Uri) {
         nextBtn = findViewById(R.id.nextBtn)
-
         nextBtn.isEnabled = false
 
         // Get a reference to the Firebase Storage location where the image will be stored.

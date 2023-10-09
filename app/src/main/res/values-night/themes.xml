@@ -2,6 +2,16 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.BlinkChat" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+         <item name="colorPrimary">@color/dark_blue</item>
+
+    </style>
+
+
+    <style name="SplashTheme" parent="Base.Theme.BlinkChat">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@color/dark_blue</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowActionBar">false</item>
     </style>
 </resources>
