@@ -1,4 +1,4 @@
-package com.example.blinkchat
+package com.example.blinkchat.activities
 
 import android.app.ProgressDialog
 import android.content.ContentValues.TAG
@@ -21,6 +21,7 @@ import android.text.style.ClickableSpan
 import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
+import com.example.blinkchat.R
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.FirebaseException

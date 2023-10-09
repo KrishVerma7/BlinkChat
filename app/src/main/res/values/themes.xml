@@ -2,8 +2,18 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.BlinkChat" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-         <item name="colorPrimary">@color/light_blue</item>
+        <item name="colorPrimary">@color/light_blue</item>
+        <!--        <item name="android:windowTranslucentNavigation">true</item>-->
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
     </style>
 
     <style name="Theme.BlinkChat" parent="Base.Theme.BlinkChat" />
+
+    <style name="SplashTheme" parent="Theme.BlinkChat">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">?attr/colorPrimary</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
 </resources>
