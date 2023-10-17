@@ -40,7 +40,7 @@ dependencies {
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
     implementation("com.google.firebase:firebase-firestore-ktx:24.8.1")
@@ -52,5 +52,12 @@ dependencies {
     implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
 
     implementation("com.hbb20:ccp:2.5.1")
+    implementation("com.squareup.picasso:picasso:2.8")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation("com.firebaseui:firebase-ui-auth:8.0.2")
+    implementation("com.firebaseui:firebase-ui-firestore:8.0.2")
+    implementation("com.firebaseui:firebase-ui-storage:8.0.2")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation ("androidx.lifecycle:lifecycle-livedata:2.3.1")
 
 }

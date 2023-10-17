@@ -262,9 +262,9 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 
-    override fun onBackPressed() {
-
-    }
+//    override fun onBackPressed() {
+//
+//    }
 
     override fun onClick(v: View) {
         val verificationBtn: Button = findViewById(R.id.verificationBtn)
