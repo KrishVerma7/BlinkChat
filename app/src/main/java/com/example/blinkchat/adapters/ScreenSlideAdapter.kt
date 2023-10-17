@@ -12,7 +12,7 @@ class ScreenSlideAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
 //swipeable interface creation
     override fun createFragment(position: Int): Fragment = when(position) {
         0-> InboxFragment()  //when position = 0 show InboxFragment()
-        else-> PeopleFragment()  //when position != 0 show PeopleFragment()
+        else-> PeopleFragment() //when position != 0 show PeopleFragment()
     }
 
 }

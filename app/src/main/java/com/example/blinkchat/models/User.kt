@@ -1,4 +1,4 @@
-package com.example.blinkchat.utils
+package com.example.blinkchat.models
 
 import com.google.firebase.firestore.FieldValue
 
