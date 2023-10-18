@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.blinkchat.activities.ChatActivity
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
@@ -48,12 +49,16 @@ class PeopleFragment : Fragment() {
                 val inflater =  LayoutInflater.from(parent.context)
                 return when (viewType) {
                     NORMAL_VIEW_TYPE -> UsersViewHolder(inflater.inflate(R.layout.list_item, parent, false))
-//                    else -> EmptyViewHolder(inflater.inflate(R.layout.empty_view, parent, false))
-                    else -> TODO()
+                    else -> EmptyViewHolder(inflater.inflate(R.layout.empty_view, parent, false))
                 }
             }
 
-            override fun onBindViewHolder(viewHolder: UsersViewHolder, position: Int, user: User) {
+            override fun onBindViewHolder(
+                holder: UsersViewHolder,
+                position: Int,
+                model: User
+            ) {
+
                 if (viewHolder is UsersViewHolder)
                     if (auth.uid == user.uid) {
                         currentList?.snapshot()?.removeAt(position)

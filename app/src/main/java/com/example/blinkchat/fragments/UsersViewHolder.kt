@@ -9,7 +9,7 @@ import com.example.blinkchat.models.User
 import com.google.android.material.imageview.ShapeableImageView
 import com.squareup.picasso.Picasso
 
-class UsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+open class UsersViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(user: User, onClick: (name: String, photo: String, id: String) -> Unit) {
         val countTv: TextView = itemView.findViewById(R.id.countTv)
         val timeTv: TextView = itemView.findViewById(R.id.timeTv)
