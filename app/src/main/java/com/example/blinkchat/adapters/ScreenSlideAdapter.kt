@@ -1,10 +1,10 @@
 package com.example.blinkchat.adapters
 
+import PeopleFragment
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.blinkchat.fragments.InboxFragment
-import com.example.blinkchat.fragments.PeopleFragment
 
 class ScreenSlideAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
     override fun getItemCount(): Int =2

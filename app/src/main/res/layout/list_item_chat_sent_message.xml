@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -19,7 +19,8 @@
         android:contentDescription="@string/like_message"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf=""/>
+        android:src="@drawable/ic_high_five_inverted"
+        app:layout_constraintEnd_toStartOf="@+id/materialCardView3"/>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView3"
@@ -48,7 +49,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="5dp"
                 android:textColor="@color/white"
-                android:textSize="14sp"
+                android:textSize="16sp"
                 tools:text="Hello"/>
 
             <TextView

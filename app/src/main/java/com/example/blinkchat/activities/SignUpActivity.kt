@@ -9,10 +9,12 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
+import android.widget.EditText
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.example.blinkchat.R
+import com.example.blinkchat.models.User
 import com.google.android.gms.tasks.Continuation
 import com.google.android.gms.tasks.Task
 import com.google.android.material.imageview.ShapeableImageView
@@ -42,10 +44,29 @@ class SignUpActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sign_up)
 
         userImgView = findViewById(R.id.userImgView)
+        val nameEt:EditText=findViewById(R.id.nameEt)
 
         userImgView.setOnClickListener {
             checkPermissionForImage()
         }
+        nextBtn.setOnClickListener {
+            val name = nameEt.text.toString()
+            if (!::downloadUrl.isInitialized) {
+                Toast.makeText(this, "Photo cannot be empty", Toast.LENGTH_SHORT).show()
+            } else if (name.isEmpty()) {
+                Toast.makeText(this, "Name cannot be empty", Toast.LENGTH_SHORT).show()
+            } else {
+                val user = User(name, downloadUrl, downloadUrl/*Needs to thumbnai url*/, auth.uid!!)
+                database.collection("users").document(auth.uid!!).set(user).addOnSuccessListener {
+                    val intent = Intent(this, MainActivity::class.java)
+                    startActivity(intent)
+                    finish()
+                }.addOnFailureListener {
+                    nextBtn.isEnabled = true
+                }
+            }
+        }
+
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
