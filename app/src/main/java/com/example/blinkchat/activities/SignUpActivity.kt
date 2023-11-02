@@ -43,6 +43,7 @@ class SignUpActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        nextBtn = findViewById(R.id.nextBtn)
         userImgView = findViewById(R.id.userImgView)
         val nameEt:EditText=findViewById(R.id.nameEt)
 
@@ -66,6 +67,10 @@ class SignUpActivity : AppCompatActivity() {
                 }
             }
         }
+
+    }
+    override fun onBackPressed() {
+        super.onBackPressed()
 
     }
 

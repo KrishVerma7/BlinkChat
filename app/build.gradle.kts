@@ -47,6 +47,7 @@ dependencies {
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("androidx.emoji2:emoji2-emojipicker:1.4.0")
+    implementation("com.google.firebase:firebase-firestore:24.9.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -63,10 +64,16 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata:2.6.2")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
 
-    val emoji2_version = "1.4.0"
-
-    implementation("androidx.emoji2:emoji2:$emoji2_version")
-    implementation("androidx.emoji2:emoji2-views:$emoji2_version")
-    implementation("androidx.emoji2:emoji2-views-helper:$emoji2_version")
+//    val emoji2_version = "1.4.0"
+//
+//    implementation("androidx.emoji2:emoji2:$emoji2_version")
+//    implementation("androidx.emoji2:emoji2-views:$emoji2_version")
+//    implementation("androidx.emoji2:emoji2-views-helper:$emoji2_version")
+//
+//    implementation("androidx.emoji:emoji:28.0.0")
+//
+//    implementation ("com.vanniktech:emoji-material:0.18.0-SNAPSHOT")
+//    implementation ("com.hbb20:ccp:2.5.1")
+//    implementation ("com.vanniktech:emoji-google:0.18.0")
 
 }

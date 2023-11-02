@@ -66,33 +66,6 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-    private fun showTimer(milliesInFutute: Long) {
-        resendBtn = findViewById(R.id.resendBtn)
-        counterTv = findViewById(R.id.counterTv)
-
-        resendBtn.isEnabled = false
-        mCounterDown = object : CountDownTimer(milliesInFutute, 1000) {
-
-            override fun onFinish() {
-                resendBtn.isEnabled = true
-                counterTv.isVisible = false
-            }
-
-            override fun onTick(millisUntilFinished: Long) {
-                timeLeft = millisUntilFinished
-                counterTv.isVisible = true
-                counterTv.text = "Seconds remaining: " + millisUntilFinished / 1000
-            }
-        }.start()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (mCounterDown != null) {
-            mCounterDown!!.cancel()
-        }
-    }
-
     private fun initViews() {
         val verificationBtn: MaterialButton = findViewById(R.id.verificationBtn)
         resendBtn = findViewById(R.id.resendBtn)
@@ -166,6 +139,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                 progressDialog.dismiss()
                 counterTv.isVisible = false
                 // Save verification ID and resending token so we can use them later
+                Log.e("onCodeSent==", "onCodeSent:$verificationId")
                 mVerificationId = verificationId
                 mResendToken = token
             }
@@ -183,7 +157,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         )   //This line creates a SpannableString by formatting a string resource.
         val clickSpan: ClickableSpan = object :
             ClickableSpan() { //This code defines a ClickableSpan object, which is used to create a clickable portion of the text.
-            override fun onClick(widget: View) {
+            override fun onClick(textView: View) {
                 showLoginActivity()
             }
 
@@ -220,6 +194,30 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putLong("timeLeft", timeLeft)
+        outState.putString(PHONE_NUMBER, phoneNumber)
+    }
+
+    //this method will send a code to a given phone number as an SMS
+    private fun startPhoneNumberVerification(phoneNumber: String) {
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+            phoneNumber,       // Phone number to verify
+            60,        // Timeout duration
+            TimeUnit.SECONDS, // Unit of timeout
+            this,      // Activity (for callback binding)
+            callbacks
+        ) // OnVerificationStateChangedCallbacks
+    }
+
+    private fun showLoginActivity() {
+        startActivity(
+            Intent(this, LoginActivity::class.java)
+                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        )    //these are flags used to clear the back stacks, helpful in dealing with stack of activities
+    }
+
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         val mAuth = FirebaseAuth.getInstance()
         mAuth.signInWithCredential(credential)
@@ -230,7 +228,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                     }
                     //First Time Login
                     if (task.result?.additionalUserInfo?.isNewUser == true) {
-                        showSignUpActivity()
+                    showSignUpActivity()
                     } else {
                         showHomeActivity()
                     }
@@ -241,13 +239,6 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                     notifyUserAndRetry("Your Phone Number verification failed. Try again!")
                 }
             }
-    }
-
-    private fun showLoginActivity() {
-        startActivity(
-            Intent(this, LoginActivity::class.java)
-                .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-        )    //these are flags used to clear the back stacks, helpful in dealing with stack of activities
     }
 
     private fun showSignUpActivity() {
@@ -262,9 +253,16 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         finish()
     }
 
-//    override fun onBackPressed() {
-//
-//    }
+    override fun onBackPressed() {
+        super.onBackPressed()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (mCounterDown != null) {
+            mCounterDown!!.cancel()
+        }
+    }
 
     override fun onClick(v: View) {
         val verificationBtn: Button = findViewById(R.id.verificationBtn)
@@ -278,7 +276,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                     progressDialog.show()
                     //   progressBar.visibility=View.VISIBLE
                     val credential: PhoneAuthCredential =
-                        PhoneAuthProvider.getCredential(mVerificationId!!, code)
+                        PhoneAuthProvider.getCredential(mVerificationId!!, code.toString())
                     signInWithPhoneAuthCredential(credential)
                 }
             }
@@ -300,6 +298,26 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
+    private fun showTimer(milliesInFutute: Long) {
+        resendBtn = findViewById(R.id.resendBtn)
+        counterTv = findViewById(R.id.counterTv)
+
+        resendBtn.isEnabled = false
+        mCounterDown = object : CountDownTimer(milliesInFutute, 1000) {
+
+            override fun onFinish() {
+                resendBtn.isEnabled = true
+                counterTv.isVisible = false
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                timeLeft = millisUntilFinished
+                counterTv.isVisible = true
+                counterTv.text = "Seconds remaining: " + millisUntilFinished / 1000
+            }
+        }.start()
+    }
+
     private fun resendVerificationCode(
         phoneNumber: String,
         mResendToken: PhoneAuthProvider.ForceResendingToken?
@@ -314,22 +332,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         ) // ForceResendingToken from callbacks
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putLong("timeLeft", timeLeft)
-        outState.putString(PHONE_NUMBER, phoneNumber)
-    }
 
-    //this method will send a code to a given phone number as an SMS
-    private fun startPhoneNumberVerification(phoneNumber: String) {
-        PhoneAuthProvider.getInstance().verifyPhoneNumber(
-            phoneNumber,       // Phone number to verify
-            60,        // Timeout duration
-            TimeUnit.SECONDS, // Unit of timeout
-            this,      // Activity (for callback binding)
-            callbacks
-        ) // OnVerificationStateChangedCallbacks
-    }
 }
 
 fun Context.createProgressDialog(message: String, isCancelable: Boolean): ProgressDialog {

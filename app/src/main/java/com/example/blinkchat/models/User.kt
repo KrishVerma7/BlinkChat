@@ -20,7 +20,7 @@ data class User(
                 imageUrl,
                 name,
                 online = false,
-                status = "Hey There, I am using whatsapp",
+                status = "Hey There, I am using BlinkChat",
                 thumbImage,
                 uid = uid
             )
