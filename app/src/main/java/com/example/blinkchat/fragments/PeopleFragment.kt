@@ -61,34 +61,36 @@ class PeopleFragment : Fragment() {
                 }
             }
 
-            //            override fun onBindViewHolder(viewHolder: UsersViewHolder, position: Int, user: User) {
-//                if (viewHolder is UsersViewHolder)
-//                    if (auth.uid == user.uid) {
+
+            override fun onBindViewHolder(viewHolder: UsersViewHolder, position: Int, user: User) {
+                if (viewHolder is UsersViewHolder)
+                    if (auth.uid == user.uid) {
 //                        currentList?.snapshot()?.removeAt(position)
 //                        notifyItemRemoved(position)
-//                    } else
-//                        viewHolder.bind(user) { name: String, photo: String, id: String ->
-//                            startActivity(
-//                                ChatActivity.createChatActivity(
-//                                    requireContext(),
-//                                    id,
-//                                    name,
-//                                    photo
-//                                )
-//                            )
-//                        }
-//            }
-            override fun onBindViewHolder(viewHolder: UsersViewHolder, position: Int, user: User) {
-                if (auth.uid != user.uid) {
-                    viewHolder.bind(user) { name: String, photo: String, id: String ->
-                        val intent = Intent(requireContext(), ChatActivity::class.java)
-                        intent.putExtra("userId", id)
-                        intent.putExtra("userName", name)
-                        intent.putExtra("userPhoto", photo)
-                        startActivity(intent)
-                    }
-                }
+                    } else
+                        viewHolder.bind(user) { name: String, photo: String, id: String ->
+                            startActivity(
+                                ChatActivity.createChatActivity(
+                                    requireContext(),
+                                    id,
+                                    name,
+                                    photo
+                                )
+                            )
+                        }
             }
+
+//            override fun onBindViewHolder(viewHolder: UsersViewHolder, position: Int, user: User) {
+//                if (auth.uid != user.uid) {
+//                    viewHolder.bind(user) { name: String, photo: String, id: String ->
+//                        val intent = Intent(requireContext(), ChatActivity::class.java)
+//                        intent.putExtra("userId", id)
+//                        intent.putExtra("userName", name)
+//                        intent.putExtra("userPhoto", photo)
+//                        startActivity(intent)
+//                    }
+//                }
+//            }
 
 
             override fun getItemViewType(position: Int): Int {

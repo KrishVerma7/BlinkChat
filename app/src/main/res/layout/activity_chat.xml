@@ -96,6 +96,7 @@
                     android:src="@drawable/ic_chat_icons_smile" />
 
                 <EditText
+                    android:id="@+id/msgEt"
                     style="@style/NoUnderlineEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
