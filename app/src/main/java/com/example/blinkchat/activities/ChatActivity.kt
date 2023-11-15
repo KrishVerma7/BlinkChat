@@ -13,13 +13,17 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.emoji2.emojipicker.EmojiPickerView
 import com.example.blinkchat.R
+import com.example.blinkchat.models.Inbox
 import com.example.blinkchat.models.Message
 import com.example.blinkchat.models.User
 
 import com.google.android.material.imageview.ShapeableImageView
 import com.google.android.play.integrity.internal.e
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.squareup.picasso.Picasso
 
@@ -85,10 +89,53 @@ class ChatActivity : AppCompatActivity() {
         checkNotNull(id) { "Cannot be null" }
         val msgMap = Message(msg, mCurrentUid, id)
         getMessages(friendId).child(id).setValue(msgMap).addOnSuccessListener {
+            Log.i("CHATS", "completed")
+        }.addOnFailureListener {
+            Log.i("CHATS", it.localizedMessage)
+        }
+        updateLastMessage(msgMap)
+    }
 
+    private fun updateLastMessage(message: Message) {
+        val inboxMap = Inbox(
+            message.msg,
+            friendId,
+            name,
+            image,
+            count = 0
+        )
+
+        getInbox(mCurrentUid, friendId).setValue(inboxMap).addOnSuccessListener {
+            getInbox(friendId, mCurrentUid).addListenerForSingleValueEvent(object :
+                ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val value = snapshot.getValue(Inbox::class.java)
+
+                    inboxMap.apply {
+                        from = message.senderId
+                        name = currentUser.name
+                        image = currentUser.thumbImage
+                        count = 1
+                    }
+                    value?.let {
+                        if (it.from == message.senderId) {
+                            inboxMap.count = value.count + 1
+                        }
+                    }
+                    getInbox(friendId,mCurrentUid).setValue(inboxMap)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    TODO("Not yet implemented")
+                }
+
+            })
         }
     }
 
+    private fun markAsRead(){
+        getInbox(friendId,mCurrentUid).child("count").setValue(0)
+    }
 
     private fun displayUserData(name: String, nameTv: TextView, userImgView: ShapeableImageView) {
         nameTv.text = name
@@ -99,7 +146,7 @@ class ChatActivity : AppCompatActivity() {
 
     private fun getMessages(friendId: String) = db.reference.child("messages/${getId(friendId)}")
 
-    private fun getinbox(toUser: String, fromUser: String) =
+    private fun getInbox(toUser: String, fromUser: String) =
         db.reference.child("chats/$toUser/$fromUser")
 
     private fun getId(friendId: String): String { //Id for the messages
