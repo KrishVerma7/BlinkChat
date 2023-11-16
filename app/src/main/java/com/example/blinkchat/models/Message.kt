@@ -20,8 +20,8 @@ data class Message(
     constructor():this("","","","",1,false,Date())
 }
 
-data class DataHeader(
+data class DateHeader(
     override val sentAt: Date = Date(),val context: Context
 ):ChatEvent{
-    val data:String = sentAt.formatAsHeader(context)
+    val date:String = sentAt.formatAsHeader(context)
 }
